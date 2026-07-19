@@ -11,22 +11,43 @@
         body {
             background-color: #333;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
             overflow: hidden;
+            font-family: Arial, sans-serif;
         }
+        /* Ajuste do tamanho total: Como exibe 2 páginas lado a lado, a largura é o dobro da altura */
         #revista {
-            width: 800px;
+            width: 700px;
             height: 500px;
         }
         .pagina {
-            width: 400px;
+            width: 350px;
             height: 500px;
-            background-size: cover;
+            background-size: contain; /* Ajusta a folha inteira dentro do espaço sem cortar */
+            background-repeat: no-repeat;
             background-position: center;
             background-color: #fff;
+        }
+        /* Botões de navegação */
+        .controles {
+            margin-top: 20px;
+        }
+        .btn {
+            background-color: #fff;
+            color: #333;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background-color: #ddd;
         }
     </style>
 </head>
@@ -65,9 +86,15 @@
         <div class="pagina" style="background-image: url('pag30.png');"></div>
     </div>
 
+    <!-- Botões para ajudar na paginação caso o mouse falhe -->
+    <div class="controles">
+        <button class="btn" onclick="$('#revista').turn('previous');">◀ Voltar</button>
+        <button class="btn" onclick="$('#revista').turn('next');">Avançar ▶</button>
+    </div>
+
     <script>
         $('#revista').turn({
-            width: 800,
+            width: 700,
             height: 500,
             autoCenter: true
         });
