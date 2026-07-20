@@ -36,20 +36,20 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 90vh; /* Ocupa quase a tela toda verticalmente */
+            height: 100vh;
             width: 100%;
         }
 
-        /* Tamanho grande e responsivo para o livro */
+        /* Tamanho médio perfeito calibrado para a sua tela */
         #revista {
-            width: 1350px;
-            height: 900px;
+            width: 1080px;
+            height: 720px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.4);
         }
         
         .pagina {
-            width: 675px;
-            height: 900px;
+            width: 540px;
+            height: 720px;
             background-size: contain; 
             background-repeat: no-repeat;
             background-position: center;
@@ -59,8 +59,9 @@
         /* Painel Lateral Direito unificando o Vídeo e os botões de voz */
         .painel-lateral-direito {
             position: absolute;
-            right: 40px;
-            top: 10vh;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -81,8 +82,8 @@
         }
 
         .container-video video {
-            width: 160px;   
-            height: 240px;  
+            width: 140px;   
+            height: 210px;  
             object-fit: cover; 
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
@@ -91,8 +92,8 @@
         .legenda-video {
             color: white;
             font-weight: bold;
-            font-size: 13px;
-            margin-top: 10px;
+            font-size: 12px;
+            margin-top: 8px;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
         }
 
@@ -100,14 +101,14 @@
         .player-narracao {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
             width: 100%;
         }
 
-        /* Botões de navegação fixados nos cantos inferiores como no seu esboço */
+        /* Botões de navegação fixados nos cantos inferiores */
         .btn-navegacao {
             position: absolute;
-            bottom: 30px;
+            bottom: 40px;
             z-index: 30;
         }
 
@@ -137,8 +138,8 @@
             transform: scale(1.05);
         }
         .btn-audio {
-            font-size: 14px;
-            padding: 12px 20px;
+            font-size: 13px;
+            padding: 10px 15px;
             background-color: #4a5568;
             color: #fff;
             text-align: center;
@@ -198,8 +199,8 @@
             </div>
             
             <div class="player-narracao">
-                <button class="btn btn-audio" onclick="controlarNarracao('fem')">Female Voice (Play/Pause)</button>
-                <button class="btn btn-audio" onclick="controlarNarracao('masc')">Male Voice (Play/Pause)</button>
+                <button class="btn btn-audio" onclick="controlarNarracao('fem')">Feminina</button>
+                <button class="btn btn-audio" onclick="controlarNarracao('masc')">Masculina</button>
             </div>
         </div>
 
@@ -215,13 +216,12 @@
         var senhaDigitada = prompt("Please enter the password to access the children's book:");
 
         if (senhaDigitada === senhaCorreta) {
-            // Se acertar, exibe a estrutura protegida
             document.getElementById('conteudo-protegido').style.display = 'flex';
             
-            // Inicializa a revista com o tamanho ideal para tela cheia
+            // Inicializa a revista com o novo tamanho calibrado 1080x720
             $('#revista').turn({
-                width: 1350,
-                height: 900,
+                width: 1080,
+                height: 720,
                 autoCenter: true,
                 when: {
                     turning: function(event, page, view) {
@@ -249,6 +249,10 @@
                 if (fem.paused) { fem.play(); } else { fem.pause(); }
             }
         }
+    </script>
+
+</body>
+</html>
     </script>
 
 </body>
