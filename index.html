@@ -28,19 +28,28 @@
             margin: 0;
             overflow: auto;
             font-family: Arial, sans-serif;
-            padding: 20px;
+            padding: 10px; /* Reduzido para dar mais espaço vertical */
             box-sizing: border-box;
         }
         
+        /* Alinhamento flexível para o livro e o vídeo */
+        .conteudo-principal {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap; /* Ajusta o layout em telas menores para não quebrar */
+        }
+
         .player-narracao {
-            margin-bottom: 20px;
+            margin-bottom: 10px; /* Espaço reduzido para os botões superiores subirem */
             background: rgba(255, 255, 255, 0.2);
             padding: 10px 20px;
             border-radius: 50px;
             backdrop-filter: blur(5px);
         }
 
-         #revista {
+        #revista {
             width: 1200px;
             height: 800px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.5);
@@ -55,8 +64,35 @@
             background-color: #fff;
         }
         
+        /* Área do Vídeo do Mini Cyber à direita */
+        .container-video {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 10px;
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .container-video video {
+            width: 200px; /* Tamanho compacto conforme a imagem */
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .legenda-video {
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            margin-top: 8px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+        
         .controles {
-            margin-top: 15px;
+            margin-top: 10px; /* Espaço reduzido para os botões inferiores subirem */
             z-index: 10;
         }
         
@@ -64,11 +100,11 @@
             background-color: #fff;
             color: #333;
             border: none;
-            padding: 15px 30px;
+            padding: 12px 25px; /* Diminuído ligeiramente para evitar cortes */
             margin: 0 10px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 18px;
+            font-size: 16px;
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             transition: transform 0.2s;
@@ -87,7 +123,6 @@
 </head>
 <body>
 
-    <!-- Todo o livro agora fica dentro desta caixinha protegida -->
     <div id="conteudo-protegido">
         <audio id="audioVirada" src="som.mp3"></audio>
         <audio id="narracaoMasc" src="narracao_masc.mp3"></audio>
@@ -99,37 +134,45 @@
             <button class="btn btn-audio" onclick="controlarNarracao('fem')"> Female Voice (Play/Pause)</button>
         </div>
 
-        <div id="revista">
-            <div class="pagina" style="background-image: url('pag1.png');"></div>
-            <div class="pagina" style="background-image: url('pag2.png');"></div>
-            <div class="pagina" style="background-image: url('pag3.png');"></div>
-            <div class="pagina" style="background-image: url('pag4.png');"></div>
-            <div class="pagina" style="background-image: url('pag5.png');"></div>
-            <div class="pagina" style="background-image: url('pag6.png');"></div>
-            <div class="pagina" style="background-image: url('pag7.png');"></div>
-            <div class="pagina" style="background-image: url('pag8.png');"></div>
-            <div class="pagina" style="background-image: url('pag9.png');"></div>
-            <div class="pagina" style="background-image: url('pag10.png');"></div>
-            <div class="pagina" style="background-image: url('pag11.png');"></div>
-            <div class="pagina" style="background-image: url('pag12.png');"></div>
-            <div class="pagina" style="background-image: url('pag13.png');"></div>
-            <div class="pagina" style="background-image: url('pag14.png');"></div>
-            <div class="pagina" style="background-image: url('pag15.png');"></div>
-            <div class="pagina" style="background-image: url('pag16.png');"></div>
-            <div class="pagina" style="background-image: url('pag17.png');"></div>
-            <div class="pagina" style="background-image: url('pag18.png');"></div>
-            <div class="pagina" style="background-image: url('pag19.png');"></div>
-            <div class="pagina" style="background-image: url('pag20.png');"></div>
-            <div class="pagina" style="background-image: url('pag21.png');"></div>
-            <div class="pagina" style="background-image: url('pag22.png');"></div>
-            <div class="pagina" style="background-image: url('pag23.png');"></div>
-            <div class="pagina" style="background-image: url('pag24.png');"></div>
-            <div class="pagina" style="background-image: url('pag25.png');"></div>
-            <div class="pagina" style="background-image: url('pag26.png');"></div>
-            <div class="pagina" style="background-image: url('pag27.png');"></div>
-            <div class="pagina" style="background-image: url('pag28.png');"></div>
-            <div class="pagina" style="background-image: url('pag29.png');"></div>
-            <div class="pagina" style="background-image: url('pag30.png');"></div>
+        <div class="conteudo-principal">
+            <div id="revista">
+                <div class="pagina" style="background-image: url('pag1.png');"></div>
+                <div class="pagina" style="background-image: url('pag2.png');"></div>
+                <div class="pagina" style="background-image: url('pag3.png');"></div>
+                <div class="pagina" style="background-image: url('pag4.png');"></div>
+                <div class="pagina" style="background-image: url('pag5.png');"></div>
+                <div class="pagina" style="background-image: url('pag6.png');"></div>
+                <div class="pagina" style="background-image: url('pag7.png');"></div>
+                <div class="pagina" style="background-image: url('pag8.png');"></div>
+                <div class="pagina" style="background-image: url('pag9.png');"></div>
+                <div class="pagina" style="background-image: url('pag10.png');"></div>
+                <div class="pagina" style="background-image: url('pag11.png');"></div>
+                <div class="pagina" style="background-image: url('pag12.png');"></div>
+                <div class="pagina" style="background-image: url('pag13.png');"></div>
+                <div class="pagina" style="background-image: url('pag14.png');"></div>
+                <div class="pagina" style="background-image: url('pag15.png');"></div>
+                <div class="pagina" style="background-image: url('pag16.png');"></div>
+                <div class="pagina" style="background-image: url('pag17.png');"></div>
+                <div class="pagina" style="background-image: url('pag18.png');"></div>
+                <div class="pagina" style="background-image: url('pag19.png');"></div>
+                <div class="pagina" style="background-image: url('pag20.png');"></div>
+                <div class="pagina" style="background-image: url('pag21.png');"></div>
+                <div class="pagina" style="background-image: url('pag22.png');"></div>
+                <div class="pagina" style="background-image: url('pag23.png');"></div>
+                <div class="pagina" style="background-image: url('pag24.png');"></div>
+                <div class="pagina" style="background-image: url('pag25.png');"></div>
+                <div class="pagina" style="background-image: url('pag26.png');"></div>
+                <div class="pagina" style="background-image: url('pag27.png');"></div>
+                <div class="pagina" style="background-image: url('pag28.png');"></div>
+                <div class="pagina" style="background-image: url('pag29.png');"></div>
+                <div class="pagina" style="background-image: url('pag30.png');"></div>
+            </div>
+
+            <!-- Vídeo do Mini Cyber com o nome corrigido do arquivo -->
+            <div class="container-video">
+                <video src="minicyber.mp4" controls></video>
+                <div class="legenda-video">Narration by Mini Cyber</div>
+            </div>
         </div>
 
         <div class="controles">
@@ -140,19 +183,17 @@
 
     <script>
         // --- SISTEMA DE SENHA ---
-        // Altere o valor abaixo entre aspas para definir a sua senha secreta!
         var senhaCorreta = "cyberlion"; 
         
         var senhaDigitada = prompt("Please enter the password to access the children's book:");
 
         if (senhaDigitada === senhaCorreta) {
-            // Se acertar, mostra o livro
             document.getElementById('conteudo-protegido').style.display = 'flex';
             
-            // Inicializa a revista apenas se a senha estiver certa
+            // Inicializa a revista mantendo os 1200x800 do seu layout
             $('#revista').turn({
-                width: 800,
-                height: 600,
+                width: 1200,
+                height: 800,
                 autoCenter: true,
                 when: {
                     turning: function(event, page, view) {
@@ -163,7 +204,6 @@
                 }
             });
         } else {
-            // Se errar, exibe um alerta e deixa a tela em branco
             alert("Incorrect password! Access denied.");
             document.body.innerHTML = "<h1 style='color:white; text-align:center; margin-top:20vh;'>Access denied. Please reload the page to try again.</h1>";
         }
@@ -181,6 +221,10 @@
                 if (fem.paused) { fem.play(); } else { fem.pause(); }
             }
         }
+    </script>
+
+</body>
+</html>
     </script>
 
 </body>
