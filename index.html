@@ -28,57 +28,59 @@
             margin: 0;
             overflow: auto;
             font-family: Arial, sans-serif;
-            padding: 10px; /* Reduzido para dar mais espaço vertical */
+            padding: 10px;
             box-sizing: border-box;
         }
         
         /* Alinhamento flexível para o livro e o vídeo */
         .conteudo-principal {
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap; /* Ajusta o layout em telas menores para não quebrar */
+            gap: 25px;
+            flex-wrap: wrap;
         }
 
         .player-narracao {
-            margin-bottom: 10px; /* Espaço reduzido para os botões superiores subirem */
+            margin-bottom: 15px;
             background: rgba(255, 255, 255, 0.2);
             padding: 10px 20px;
             border-radius: 50px;
             backdrop-filter: blur(5px);
         }
 
+        /* 1- Novo tamanho do livro corrigido para não estourar a tela */
         #revista {
-            width: 1200px;
-            height: 800px;
+            width: 960px;
+            height: 640px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
         
         .pagina {
-            width: 600px;
-            height: 800px;
+            width: 480px;
+            height: 640px;
             background-size: contain; 
             background-repeat: no-repeat;
             background-position: center;
             background-color: #fff;
         }
         
-        /* Área do Vídeo do Mini Cyber à direita */
+        /* 2- Área do Vídeo ajustada para a proporção vertical 2:3 */
         .container-video {
             display: flex;
             flex-direction: column;
             align-items: center;
             background: rgba(255, 255, 255, 0.15);
-            padding: 10px;
+            padding: 12px;
             border-radius: 15px;
             backdrop-filter: blur(5px);
             box-shadow: 0 8px 20px rgba(0,0,0,0.15);
         }
 
         .container-video video {
-            width: 200px; /* Tamanho compacto conforme a imagem */
-            height: auto;
+            width: 160px;   /* Proporção 2:3 */
+            height: 240px;  /* Proporção 2:3 */
+            object-fit: cover; /* Garante que o vídeo preencha o espaço sem distorcer */
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
@@ -86,13 +88,13 @@
         .legenda-video {
             color: white;
             font-weight: bold;
-            font-size: 14px;
-            margin-top: 8px;
+            font-size: 13px;
+            margin-top: 10px;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
         }
         
         .controles {
-            margin-top: 10px; /* Espaço reduzido para os botões inferiores subirem */
+            margin-top: 15px;
             z-index: 10;
         }
         
@@ -100,7 +102,7 @@
             background-color: #fff;
             color: #333;
             border: none;
-            padding: 12px 25px; /* Diminuído ligeiramente para evitar cortes */
+            padding: 12px 25px;
             margin: 0 10px;
             cursor: pointer;
             font-weight: bold;
@@ -168,7 +170,6 @@
                 <div class="pagina" style="background-image: url('pag30.png');"></div>
             </div>
 
-            <!-- Vídeo do Mini Cyber com o nome corrigido do arquivo -->
             <div class="container-video">
                 <video src="minicyber.mp4" controls></video>
                 <div class="legenda-video">Narration by Mini Cyber</div>
@@ -190,10 +191,10 @@
         if (senhaDigitada === senhaCorreta) {
             document.getElementById('conteudo-protegido').style.display = 'flex';
             
-            // Inicializa a revista mantendo os 1200x800 do seu layout
+            // Inicializa a revista com o tamanho atualizado de 960x640
             $('#revista').turn({
-                width: 1200,
-                height: 800,
+                width: 960,
+                height: 640,
                 autoCenter: true,
                 when: {
                     turning: function(event, page, view) {
@@ -221,10 +222,6 @@
                 if (fem.paused) { fem.play(); } else { fem.pause(); }
             }
         }
-    </script>
-
-</body>
-</html>
     </script>
 
 </body>
