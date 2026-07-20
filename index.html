@@ -56,7 +56,7 @@
         }
         
         .controles {
-            margin-top: 30px;
+            margin-top: 15px;
             z-index: 10;
         }
         
@@ -69,7 +69,7 @@
             cursor: pointer;
             font-weight: bold;
             font-size: 18px;
-            border-radius: 30px;
+            border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             transition: transform 0.2s;
         }
@@ -143,7 +143,7 @@
         // Altere o valor abaixo entre aspas para definir a sua senha secreta!
         var senhaCorreta = "cyberlion"; 
         
-        var senhaDigitada = prompt("Por favor, digite a senha para acessar o livro infantil:");
+        var senhaDigitada = prompt("Please enter the password to access the children's book:");
 
         if (senhaDigitada === senhaCorreta) {
             // Se acertar, mostra o livro
@@ -158,14 +158,14 @@
                     turning: function(event, page, view) {
                         var som = document.getElementById('audioVirada');
                         som.currentTime = 0;
-                        som.play().catch(function(e){ console.log("Som aguardando clique inicial."); });
+                        som.play().catch(function(e){ console.log("Sound awaiting initial click."); });
                     }
                 }
             });
         } else {
             // Se errar, exibe um alerta e deixa a tela em branco
             alert("Incorrect password! Access denied.");
-            document.body.innerHTML = "<h1 style='color:white; text-align:center; margin-top:20vh;'>Acesso Negado. Recarregue a página para tentar novamente.</h1>";
+            document.body.innerHTML = "<h1 style='color:white; text-align:center; margin-top:20vh;'>Access denied. Please reload the page to try again.</h1>";
         }
 
         // --- FUNÇÃO DE NARRAÇÃO ---
