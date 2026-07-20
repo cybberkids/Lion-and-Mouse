@@ -8,7 +8,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/turn.js/3/turn.min.js"></script>
     
     <style>
-        /* Esconde o conteúdo do livro por padrão até que a senha seja digitada corretamente */
         #conteudo-protegido {
             display: none;
             position: relative;
@@ -31,7 +30,6 @@
             height: 100vh;
         }
         
-        /* Área principal contendo o livro centralizado */
         .conteudo-principal {
             display: flex;
             align-items: center;
@@ -40,7 +38,7 @@
             width: 100%;
         }
 
-        /* Tamanho médio perfeito calibrado para a sua tela */
+        /* --- CONFIGURAÇÃO PARA PC (PADRÃO) --- */
         #revista {
             width: 1080px;
             height: 720px;
@@ -56,11 +54,10 @@
             background-color: #fff;
         }
         
-        /* Painel Lateral Direito unificando o Vídeo e os botões de voz */
         .painel-lateral-direito {
             position: absolute;
             right: 30px;
-            top: 30%;
+            top: 50%;
             transform: translateY(-50%);
             display: flex;
             flex-direction: column;
@@ -69,7 +66,6 @@
             z-index: 20;
         }
 
-        /* Container do Vídeo na proporção vertical 2:3 */
         .container-video {
             display: flex;
             flex-direction: column;
@@ -97,7 +93,6 @@
             text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
         }
 
-        /* Botões de Narração empilhados abaixo do vídeo */
         .player-narracao {
             display: flex;
             flex-direction: column;
@@ -105,22 +100,15 @@
             width: 100%;
         }
 
-        /* Botões de navegação fixados nos cantos inferiores */
         .btn-navegacao {
             position: absolute;
             bottom: 40px;
             z-index: 30;
         }
 
-        .btn-left {
-            left: 40px;
-        }
-
-        .btn-right {
-            right: 40px;
-        }
+        .btn-left { left: 40px; }
+        .btn-right { right: 40px; }
         
-        /* Mantendo os designs originais dos botões */
         .btn {
             background-color: #fff;
             color: #333;
@@ -146,6 +134,60 @@
             width: 100%;
             box-sizing: border-box;
         }
+
+        /* =======================================================
+           --- ADAPTAÇÃO AUTOMÁTICA PARA CELULAR (Telas de até 768px) ---
+           ======================================================= */
+        @media (max-width: 768px) {
+            body, #conteudo-protegido {
+                overflow-y: auto; /* Permite rolar para baixo no celular para ver o vídeo */
+                height: auto;
+                min-height: 100vh;
+                flex-direction: column;
+                justify-content: flex-start;
+                padding-top: 20px;
+            }
+
+            .conteudo-principal {
+                height: auto;
+                margin-top: 10px;
+            }
+
+            /* Redimensiona o livro para caber na largura do celular (1 página visível) */
+            #revista {
+                width: 360px !important;
+                height: 540px !important;
+            }
+
+            .pagina {
+                width: 360px !important;
+                height: 540px !important;
+            }
+
+            /* Reposiciona o painel do Mini Cyber abaixo do livro */
+            .painel-lateral-direito {
+                position: static;
+                transform: none;
+                margin: 20px 0 100px 0; /* Dá espaço para não cobrir os botões */
+                width: 90%;
+            }
+
+            /* Organiza os botões de áudio lado a lado no celular */
+            .player-narracao {
+                flex-direction: row;
+                gap: 10px;
+            }
+
+            /* Fixa os botões "Go back" e "Go" na parte inferior da tela do celular */
+            .btn-navegacao {
+                position: fixed;
+                bottom: 15px;
+                padding: 12px 25px;
+                font-size: 16px;
+            }
+            .btn-left { left: 15px; }
+            .btn-right { right: 15px; }
+        }
     </style>
 </head>
 <body>
@@ -155,7 +197,6 @@
         <audio id="narracaoMasc" src="narracao_masc.mp3"></audio>
         <audio id="narracaoFem" src="narracao_fem.mp3"></audio>
 
-        <!-- Estrutura Principal do Livro -->
         <div class="conteudo-principal">
             <div id="revista">
                 <div class="pagina" style="background-image: url('pag1.png');"></div>
@@ -188,11 +229,9 @@
                 <div class="pagina" style="background-image: url('pag28.png');"></div>
                 <div class="pagina" style="background-image: url('pag29.png');"></div>
                 <div class="pagina" style="background-image: url('pag30.png');"></div>
-                <div class="pagina" style="background-image: url('pag31.png');"></div>
             </div>
         </div>
 
-        <!-- Painel Lateral: Vídeo em cima e opções de voz embaixo -->
         <div class="painel-lateral-direito">
             <div class="container-video">
                 <video src="minicyber.mp4" controls></video>
@@ -200,35 +239,36 @@
             </div>
             
             <div class="player-narracao">
-                <button class="btn btn-audio" onclick="controlarNarracao('fem')">Grandmother Cyber</button>
-                <button class="btn btn-audio" onclick="controlarNarracao('masc')">Uncle Cyber</button>
+                <button class="btn btn-audio" onclick="controlarNarracao('fem')">Feminina</button>
+                <button class="btn btn-audio" onclick="controlarNarracao('masc')">Masculina</button>
             </div>
         </div>
 
-        <!-- Botões posicionados nos cantos inferiores -->
         <button class="btn btn-navegacao btn-left" onclick="$('#revista').turn('previous');">◀ Go back</button>
         <button class="btn btn-navegacao btn-right" onclick="$('#revista').turn('next');">Go ▶</button>
     </div>
 
     <script>
-        // --- SISTEMA DE SENHA ---
         var senhaCorreta = "cyberlion"; 
-        
         var senhaDigitada = prompt("Please enter the password to access the children's book:");
 
         if (senhaDigitada === senhaCorreta) {
             document.getElementById('conteudo-protegido').style.display = 'flex';
             
-            // Inicializa a revista com o novo tamanho calibrado 1080x720
+            // Detecta se o usuário está acessando pelo celular
+            var esCelular = window.innerWidth <= 768;
+
+            // Configura dinamicamente as opções do turn.js
             $('#revista').turn({
-                width: 1080,
-                height: 720,
+                width: esCelular ? 360 : 1080,
+                height: esCelular ? 540 : 720,
+                display: esCelular ? 'single' : 'double', // Celular = 1 página | PC = 2 páginas
                 autoCenter: true,
                 when: {
                     turning: function(event, page, view) {
                         var som = document.getElementById('audioVirada');
                         som.currentTime = 0;
-                        som.play().catch(function(e){ console.log("Sound awaiting initial click."); });
+                        som.play().catch(function(e){ console.log("Som aguardando clique inicial."); });
                     }
                 }
             });
@@ -237,7 +277,6 @@
             document.body.innerHTML = "<h1 style='color:white; text-align:center; margin-top:20vh;'>Access denied. Please reload the page to try again.</h1>";
         }
 
-        // --- FUNÇÃO DE NARRAÇÃO ---
         function controlarNarracao(tipo) {
             var masc = document.getElementById('narracaoMasc');
             var fem = document.getElementById('narracaoFem');
