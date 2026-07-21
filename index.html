@@ -221,7 +221,6 @@
             <div class="player-narracao">
                 <button class="btn btn-audio" onclick="controlarNarracao('fem')">Grandmother Cyber</button>
                 <button class="btn btn-audio" onclick="controlarNarracao('masc')">Uncle Cyber</button>
-
             </div>
         </div>
 
@@ -232,7 +231,6 @@
     <script>
         var senhaCorreta = "cyberlion";
         
-        // Verifica se a senha já foi salva anteriormente no navegador
         var acessoLiberado = localStorage.getItem("acesso_liberado") === "true";
 
         if (!acessoLiberado) {
@@ -249,21 +247,22 @@
         if (acessoLiberado) {
             document.getElementById('conteudo-protegido').style.display = 'flex';
             
-            // Lógica de dimensionamento para Tablet e Celular
             var larguraTela = window.innerWidth;
-            var modoUnico = larguraTela <= 1100;
 
-            var larguraLivro = modoUnico ? Math.min(larguraTela - 40, 480) : 960;
-            var alturaLivro = modoUnico ? (larguraLivro * 1.4) : 640;
+            // Apenas telas pequenas (celulares com até 600px) usam modo único
+            var esCelular = larguraTela <= 600;
 
-            // Ajusta o tamanho no CSS antes de inicializar o Turn.js
+            var larguraLivro = (larguraTela <= 1100) ? Math.min(larguraTela - 40, 960) : 960;
+            var alturaLivro = (larguraTela <= 1100 && esCelular) ? (larguraLivro * 1.4) : 640;
+
+            // Ajusta o CSS do container e das páginas
             $('#revista').css({ width: larguraLivro + 'px', height: alturaLivro + 'px' });
-            $('.pagina').css({ width: (modoUnico ? larguraLivro : larguraLivro / 2) + 'px', height: alturaLivro + 'px' });
+            $('.pagina').css({ width: (esCelular ? larguraLivro : larguraLivro / 2) + 'px', height: alturaLivro + 'px' });
 
             $('#revista').turn({
                 width: larguraLivro,
                 height: alturaLivro,
-                display: modoUnico ? 'single' : 'double',
+                display: esCelular ? 'single' : 'double', // Celular = 1 página | Tablet e PC = 2 páginas
                 autoCenter: true,
                 when: {
                     turning: function(event, page, view) {
@@ -287,10 +286,6 @@
                 if (fem.paused) { fem.play(); } else { fem.pause(); }
             }
         }
-    </script>
-
-</body>
-</html>
     </script>
 
 </body>
